@@ -13,7 +13,9 @@ static void	ft_rotate(t_stack **stacks)
 	(*stacks)->prev = NULL;
 	lstnode->next = firstnode;
 	firstnode->next = NULL;
+	firstnode->prev = lstnode;
 }
+
 void	ra(t_stack **a)
 {
 	ft_rotate(a);

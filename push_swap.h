@@ -65,6 +65,8 @@ char	**ft_split_ps(char const *s, char c);
 void	ft_sort_stacks(t_stack **a, t_stack **b);
 void	ft_init_nodesa(t_stack *a, t_stack *b);
 void	ft_init_nodesb(t_stack *a, t_stack *b);
+void	ft_order_min_max(t_stack **a);
+int ft_find_median(t_stack *a);
 void	ft_cheapest(t_stack *stacks);
 void	ft_index(t_stack *stacks);
 void	ft_sort_three(t_stack **a);

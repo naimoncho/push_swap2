@@ -1,16 +1,5 @@
 #include "push_swap.h"
 
-static void	ft_order_min_max(t_stack **a)
-{
-	while ((*a)->dataarg != ft_findmin(*a)->dataarg)
-	{
-		if(ft_findmin(*a)->up_median)
-			ra(a);
-		else
-			rra(a);
-	}
-}
-
 static void	ft_rboth(t_stack **a, t_stack **b, t_stack *lower)
 {
 	while (*b != lower->node && *a != lower)
@@ -26,6 +15,7 @@ static void	ft_rrboth(t_stack **a, t_stack **b, t_stack *lower)
 	ft_index(*a);
 	ft_index(*b);
 }
+
 
 static void	ft_movea(t_stack **a, t_stack **b)
 {
@@ -47,27 +37,31 @@ static void	ft_movea(t_stack **a, t_stack **b)
 
 static void	ft_moveb(t_stack **a, t_stack **b)
 {
-	ft_preppush(a, (*b)->node, 'a');
+	t_stack *cheapest_node;
+
+	if (!a || !*a || !b) 
+		return ;
+	cheapest_node = ft_lowercost(*b);
+	if (!cheapest_node)
+		return ;
+	ft_preppush(a, cheapest_node, 'a');
 	pa(a, b);
 }
 
 void	ft_sort_stacks(t_stack **a, t_stack **b)
 {
-	int	i;
-
-	i = ft_lstlen_ps(*a);
-	while (i-- > 3 && !ft_stackorder(*a))
+	while (*a && ft_lstlen_ps(*a) > 3)
+	{
+		if ((*a)->dataarg < ft_find_median(*a))
+			pb(a, b);
+		else
+			ra(a);
+	}
+	ft_sort_three(a);
+	while (*b)
 	{
 		ft_init_nodesa(*a, *b);
 		ft_movea(a, b);
 	}
-	if (!ft_stackorder(*a))
-		ft_sort_three(a);
-	while (*b)
-	{
-		ft_init_nodesb(*a, *b);
-		ft_moveb(a, b);
-	}
-	ft_index(*a);
 	ft_order_min_max(a);
 }

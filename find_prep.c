@@ -30,7 +30,7 @@ t_stack	*ft_findmax(t_stack *stacks)
 		return (NULL);
 	while (stacks)
 	{
-		if (stacks->dataarg < max)
+		if (stacks->dataarg > max)
 		{
 			max = stacks->dataarg;
 			max_node = stacks;
@@ -42,15 +42,27 @@ t_stack	*ft_findmax(t_stack *stacks)
 
 t_stack	*ft_lowercost(t_stack *stacks)
 {
-	if (!stacks)
-		return (NULL);
+	t_stack	*best_node;
+	int		best_score;
+	int		moves;
+
+	best_node = NULL;
+	best_score = INT_MAX;
 	while (stacks)
 	{
-		if (stacks->lowercost)
-			return (stacks);
+		if (stacks->up_median && stacks->node->up_median)
+			moves -= 1;
+		else if (!stacks->up_median && !stacks->node->up_median)
+			moves -= 1;
+		moves = stacks->cost;
+		if (moves < best_score)
+		{
+			best_score = moves;
+			best_node = stacks;
+		}
 		stacks = stacks->next;
 	}
-	return (NULL);
+	return (best_node);
 }
 
 void	ft_preppush(t_stack **stacks, t_stack *head, char name)
@@ -69,5 +81,21 @@ void	ft_preppush(t_stack **stacks, t_stack *head, char name)
 			else
 				rrb(stacks);
 		}
+	}
+}
+
+void	ft_order_min_max(t_stack **a)
+{
+	t_stack *min_node;
+
+	min_node = ft_findmin(*a);
+	if (ft_stackorder(*a))
+		return ;
+	while ((*a)->dataarg != min_node->dataarg)
+	{
+		if(min_node->up_median)
+			ra(a);
+		else
+			rra(a);
 	}
 }

@@ -44,7 +44,7 @@ int	ft_lstlen_ps(t_stack *stacks)
 bool	ft_stackorder(t_stack *stacks)
 {
 	if (!stacks)
-		return (1);
+		return (true);
 	while (stacks->next)
 	{
 		if (stacks->dataarg > stacks->next->dataarg)
@@ -56,12 +56,9 @@ bool	ft_stackorder(t_stack *stacks)
 
 void	ft_sort_three(t_stack **a)
 {
-	t_stack	*node;
-
-	node = ft_findmax(*a);
-	if (node == *a)
+	if ((*a)->dataarg > (*a)->next->dataarg && (*a)->dataarg > (*a)->next->next->dataarg)
 		ra(a);
-	else if((*a)->next != node)
+	else if ((*a)->next->dataarg > (*a)->dataarg && (*a)->next->dataarg > (*a)->next->next->dataarg)
 		rra(a);
 	if ((*a)->dataarg > (*a)->next->dataarg)
 		sa(a);

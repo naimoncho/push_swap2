@@ -33,3 +33,52 @@ void	ft_init_nodesb(t_stack *a, t_stack *b)
 	ft_index(b);
 	ft_set_b(a, b);
 }
+static void ft_sort_array(int *arr, int size)
+{
+	int i;
+	int j;
+	int temp;
+
+	i = 0;
+	while (i < size - 1)
+	{
+		j = 0;
+		while (j < size - i - 1)
+		{
+			if (arr[j] > arr[j + 1])
+			{
+				temp = arr[j];
+				arr[j] = arr[j + 1];
+				arr[j + 1] = temp;
+			}
+			j++;
+		}
+		i++;
+	}
+}
+int ft_find_median(t_stack *a)
+{
+	int		i;
+	int		size;
+	int		*values;
+	t_stack	*temp;
+
+	if (!a)
+		return 0;
+	size = ft_lstlen_ps(a);
+	values = malloc(sizeof(int) * size);
+	if (!values)
+		return 0;
+	i = 0;
+	temp = a;
+	while (temp)
+	{
+		values[i] = temp->dataarg;
+		temp = temp->next;
+		i++;
+	}
+	ft_sort_array(values, size);
+	int median = values[size / 2];
+	free(values);
+	return median;
+}

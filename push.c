@@ -11,7 +11,7 @@ static void	ft_push(t_stack **dest, t_stack **src)
 	if (*src)
 		(*src)->prev = NULL;
 	push->prev = NULL;
-	if (!dest)
+	if (!*dest)
 	{
 		*dest = push;
 		push->next = NULL;
